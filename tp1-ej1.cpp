@@ -6,7 +6,6 @@ Luego calcular e informar la suma de ellos.
 
 #include <iostream>
 using namespace std;
-#include <cstdlib>
 
 int main(){
   int num1, num2, resultado;
@@ -16,7 +15,6 @@ int main(){
   resultado = num1 + num2;
   cout << endl;
   cout << "Resultado de la suma: " << resultado << endl;
-  system("pause");
 
   return 0;
 }
