@@ -16,19 +16,24 @@
 \begin{center}
 \begin{tikzpicture}[node distance = 2cm]
     \node(start1)[start]{I};
-    \node(in1)[input, below of = start1]{n1, n2};
-    \node(dec1)[decision, below of = in1, yshift = -0.5cm]{n1 $<$ n2};
-    \node(pr1)[process, below of = dec1, yshift = -0.5cm]{dif = n2 - n1};
-    \node(pr2)[process, right of = dec1, xshift = 2cm]{dif = n1 - n2};
-    \node(out1)[output, below of = pr1]{dif};
+    \node(in1)[input, below of = start1]{n1, n2, n3};
+    \node(pr1)[process, below of = in1]{max = n1};
+    \node(dec1)[decision, below of = pr1, yshift = -0.5cm]{max $<$ n2};
+    \node(pr2)[process, below of = dec1, yshift = -0.5cm]{max = n2};
+    \node(dec2)[decision, below of = pr2, yshift = -0.5cm]{max $<$ n3};
+    \node(pr3)[process, below of = dec2, yshift = -0.5cm]{max = n3};
+    \node(out1)[output, below of = pr3]{max};
     \node(stop1)[stop, below of = out1]{F};
 
     \draw[arrow](start1)--(in1);
-    \draw[arrow](in1)--(dec1);
-    \draw[arrow](dec1)--node[anchor=east]{V}(pr1);
-    \draw[arrow](dec1)--node[anchor=south]{F}(pr2);
-    \draw[arrow](pr1)--(out1);
-    \draw[arrow](pr2)|-(out1);
+    \draw[arrow](in1)--(pr1);
+    \draw[arrow](pr1)--(dec1);
+    \draw[arrow](dec1)--node[anchor=east]{V}(pr2);
+    \draw[arrow](dec1.east)--++(2,0)node[midway,above]{F}|-(dec2.north);
+    \draw[arrow](pr2)--(dec2);
+    \draw[arrow](dec2)--node[anchor=east]{V}(pr3);
+    \draw[arrow](dec2.east)--++(2,0)node[midway,above]{F}|-(out1.north);
+    \draw[arrow](pr3)--(out1);
     \draw[arrow](out1)--(stop1);
 \end{tikzpicture}
 \end{center}
