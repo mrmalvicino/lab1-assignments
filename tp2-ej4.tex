@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+
+\usetikzlibrary{shapes.geometric, arrows}
+
+\tikzstyle{start} = [circle, minimum width = 1cm, minimum height = 1cm, text centered, draw = black, fill = red!30]
+\tikzstyle{stop} = [circle, minimum width = 1cm, minimum height = 1cm, text centered, draw = black, fill = red!30]
+\tikzstyle{input} = [trapezium, trapezium left angle = 110, trapezium right angle = 110, minimum width = 1cm, minimum height = 1cm, text centered, draw = black, fill = cyan!30]
+\tikzstyle{output} = [trapezium, trapezium left angle = 70, trapezium right angle = 70, minimum width = 1cm, minimum height = 1cm, text centered, draw = black, fill = cyan!30]
+\tikzstyle{process} = [rectangle, minimum width = 3cm, minimum height = 1cm, text centered, draw = black, fill = yellow!30]
+\tikzstyle{decision} = [diamond, minimum width = 2cm, minimum height = 1cm, text centered, draw = black, fill = green!30]
+\tikzstyle{arrow} = [thick, ->, >=stealth]
+
+\begin{document}
+\begin{center}
+\begin{tikzpicture}[node distance = 2cm]
+    \node(start1)[start]{I};
+    \node(in1)[input, below of = start1]{n1, n2};
+    \node(dec1)[decision, below of = in1, yshift = -0.5cm]{n1 $<$ n2};
+    \node(pr1)[process, below of = dec1, yshift = -0.5cm]{dif = n2 - n1};
+    \node(pr2)[process, right of = dec1, xshift = 2cm]{dif = n1 - n2};
+    \node(out1)[output, below of = pr1]{dif};
+    \node(stop1)[stop, below of = out1]{F};
+
+    \draw[arrow](start1)--(in1);
+    \draw[arrow](in1)--(dec1);
+    \draw[arrow](dec1)--(pr1);
+    \draw[arrow](dec1)--(pr2);
+    \draw[arrow](pr1)--(out1);
+    \draw[arrow](pr2)|-(out1);
+    \draw[arrow](out1)--(stop1);
+\end{tikzpicture}
+\end{center}
+\end{document}

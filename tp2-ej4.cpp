@@ -28,8 +28,12 @@ int main(){
   cout << "Ingresar dos números." << endl;
   cin >> n_1;
   cin >> n_2;
-  if(n_1)
-  dif = n_1 - n_2;
+  if(n_1<n_2){
+    dif = n_2 - n_1;
+  }
+  else{
+    dif = n_1 - n_2;
+  }
   cout << "Módulo de la diferencia: " << dif << endl;
   return 0;
 }
