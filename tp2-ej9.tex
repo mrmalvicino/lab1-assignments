@@ -29,10 +29,12 @@
     \draw[arrow](in1)--(pr1);
     \draw[arrow](pr1)--(dec1);
     \draw[arrow](dec1)--node[anchor=east]{V}(pr2);
-    \draw[arrow](dec1.east)--++(2,0)node[midway,above]{F}|-(dec2.north);
+    \draw[arrow](pr2)--coordinate[midway](mid1)(dec2);
+    \draw[arrow](dec1.east)--++(2,0)node[midway,above]{F}|-(mid1);
     \draw[arrow](pr2)--(dec2);
     \draw[arrow](dec2)--node[anchor=east]{V}(pr3);
-    \draw[arrow](dec2.east)--++(2,0)node[midway,above]{F}|-(out1.north);
+    \draw[arrow](pr3)--coordinate[midway](mid2)(out1);
+    \draw[arrow](dec2.east)--++(2,0)node[midway,above]{F}|-(mid2);
     \draw[arrow](pr3)--(out1);
     \draw[arrow](out1)--(stop1);
 \end{tikzpicture}

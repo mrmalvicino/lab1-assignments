@@ -28,7 +28,8 @@
     \draw[arrow](dec1)--node[anchor=east]{V}(pr1);
     \draw[arrow](dec1)--node[anchor=south]{F}(pr2);
     \draw[arrow](pr1)--(out1);
-    \draw[arrow](pr2)|-(out1);
+    \draw[arrow](pr1)--coordinate[midway](mid1)(out1);
+    \draw[arrow](pr2)|-(mid1);
     \draw[arrow](out1)--(stop1);
 \end{tikzpicture}
 \end{center}
