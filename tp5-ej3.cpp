@@ -21,6 +21,58 @@ b) Para cada empleado indicar con una leyenda aclaratoria si trabajó de más, i
 
 #include <iostream>
 
-
 int main(){
+    int n_emp = 3;  // Cantidad de empleados
+    int emp;        // Número de legajo del empleado
+    int hrs;        // Horas de trabajo por semana [h]
+    int h_in;       // Hora de entrada [h]
+    int h_out;      // Hora de salida [h]
+    int h_sum = 0;  // Horas trabajadas [h]
+    int days_a = 0; // Días de ausencia
+
+    for(int i = 0; i < n_emp; i++){
+        do{
+            std::cout << "Número de legajo del empleado:" << std::endl;
+            std::cin >> emp;
+        } while(emp < 1);
+
+        do{
+            std::cout << "Horas de trabajo por semana [h]:" << std::endl;
+            std::cin >> hrs;
+        } while(hrs < 1);
+
+        for(int i = 0; i < 7; i++){
+            do{
+                std::cout << "Hora de entrada [h] del día " << i + 1 << ":" << std::endl;
+                std::cin >> h_in;
+            } while(h_in < 0 || 23 < h_in);
+
+            do{
+                std::cout << "Hora de salida [h] del día " << i + 1 << ":" << std::endl;
+                std::cin >> h_out;
+            } while(h_out < h_in);
+
+            if(h_in == h_out){
+                days_a ++;
+            }
+
+            h_sum = h_sum + (h_out - h_in);
+        }
+
+        if(0 < days_a){
+            std::cout << "El empleado número " << emp << " faltó " << days_a << " días en la semana." << std::endl;
+        }
+
+        days_a = 0;
+
+        if(h_sum == hrs){
+            std::cout << "El empleado número " << emp << " trabajó " << h_sum << " horas en la semana, tal como se estipulaba." << std::endl;
+        } else if(h_sum < hrs){
+            std::cout << "El empleado número " << emp << " trabajó " << h_sum << " horas en la semana, " << hrs - h_sum << " horas menos de lo estipulado." << std::endl;
+        } else{
+            std::cout << "El empleado número " << emp << " trabajó " << h_sum << " horas en la semana, " << h_sum - hrs << " horas más de lo estipulado." << std::endl;
+        }
+
+        h_sum = 0;
+    }
 }
