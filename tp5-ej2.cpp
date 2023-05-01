@@ -21,7 +21,115 @@ f) El nro. de sucursal que recibió más cantidad de depósitos (sin importar el
 */
 
 #include <iostream>
-using namespace std;
 
-void main(){
+int main(){
+    int cli = 1;            // número de cliente (100 < cli < 1200)
+    int bank;               // número de sucursal (1,2 o 3)
+    char type;              // tipo de transacción ('D' para depósitos,'E' para extracciones)
+    float amount;           // monto de transacción [$]
+    int n_dep = 0;          // cantidad de depósitos mayores a $1000
+    float max_ext = 0;      // valor de la extracción máxima [$]
+    int max_ext_cli;        // cliente que realizó la máxima extracción
+    int max_ext_bank;       // sucursal en la que se realizó la máxima extracción
+    int n_tot = 0;          // cantidad de transacciones en total
+    int n_1 = 0;            // cantidad de transacciones en sucursal 1
+    int n_2 = 0;            // cantidad de transacciones en sucursal 2
+    int n_3 = 0;            // cantidad de transacciones en sucursal 3
+    float dep_1 = 0;        // depósitos en sucursal 1 [$]
+    float dep_2 = 0;        // depósitos en sucursal 2 [$]
+    float dep_3 = 0;        // depósitos en sucursal 3 [$]
+    int n_dep_1 = 0;        // cantidad de depósitos en sucursal 1
+    int n_dep_2 = 0;        // cantidad de depósitos en sucursal 2
+    int n_dep_3 = 0;        // cantidad de depósitos en sucursal 3
+    int max_dep_bank = 1;   // sucursal en la que se realizó más depósitos
+
+    while(cli != 0){
+        do{
+            std::cout << "Número de cliente:" << std::endl;
+            std::cin >> cli;
+        } while((cli != 0 && cli < 100) || 1200 < cli);
+
+        if(cli != 0){
+            do{
+                std::cout << "Número de sucursal:" << std::endl;
+                std::cin >> bank;
+            } while(bank < 1 || 3 < bank);
+
+            do{
+                std::cout << "Tipo de transacción:" << std::endl;
+                std::cin >> type;
+            } while(type != 'D' && type != 'd' && type != 'E' && type != 'e');
+
+            do{
+                std::cout << "Monto:" << std::endl;
+                std::cin >> amount;
+            } while(amount <= 0);
+
+            if(1000 < amount && (type == 'D' || type == 'd')){
+                n_dep ++;
+            }
+
+            if(max_ext < amount && (type == 'e' || type == 'E')){
+                max_ext = amount;
+                max_ext_cli = cli;
+                max_ext_bank = bank;
+            }
+
+            n_tot ++;
+
+            switch(bank){
+                case 1:
+                    n_1 ++;
+                    if(type == 'd' || type == 'D'){
+                        dep_1 = dep_1 + amount;
+                        n_dep_1 ++;
+                    }
+                    break;
+                case 2:
+                    n_2 ++;
+                    if(type == 'd' || type == 'D'){
+                        dep_2 = dep_2 + amount;
+                        n_dep_2 ++;
+                    }
+                    break;
+                case 3:
+                    n_3 ++;
+                    if(type == 'd' || type == 'D'){
+                        dep_3 = dep_3 + amount;
+                        n_dep_3 ++;
+                    }
+                    break;
+            }
+        }
+    }
+
+    if(n_dep_1 < n_dep_2 && n_dep_3 < n_dep_2){
+        max_dep_bank = 2;
+    }
+
+    if(n_dep_1 < n_dep_3 && n_dep_2 < n_dep_3){
+        max_dep_bank = 3;
+    }
+
+    // Cantidad de depósitos por más de $1000:
+    std::cout << "Cantidad de depósitos por más de $1000: " << n_dep << std::endl;
+
+    // Cliente que hizo la mayor extracción, y en qué sucursal la hizo:
+    std::cout << "Cliente que hizo la mayor extracción: " << max_ext_cli << " (suc. " << max_ext_bank << ")" << std::endl;
+    
+    // Porcentaje de transacciones en cada sucursal:
+    std::cout << "Cantidad de transacciones en sucursal 1: " << (static_cast<float>(n_1)/n_tot)*100 << "%" << std::endl;
+    std::cout << "Cantidad de transacciones en sucursal 2: " << (static_cast<float>(n_2)/n_tot)*100 << "%" << std::endl;
+    std::cout << "Cantidad de transacciones en sucursal 3: " << (static_cast<float>(n_3)/n_tot)*100 << "%" << std::endl;
+    
+    // Total depositado en cada sucursal:
+    std::cout << "Depositado en sucursal 1: $" << dep_1 << std::endl;
+    std::cout << "Depositado en sucursal 2: $" << dep_2 << std::endl;
+    std::cout << "Depositado en sucursal 3: $" << dep_3 << std::endl;
+    
+    // Cantidad de depósitos en sucursal 3:
+    std::cout << "Cantidad de depósitos en sucursal 3: " << n_dep_3 << std::endl;
+    
+    // Sucursal que recibió más depósitos:
+    std::cout << "Sucursal que recibió más depósitos: " << max_dep_bank << std::endl;
 }

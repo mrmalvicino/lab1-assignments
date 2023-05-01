@@ -20,7 +20,7 @@ b) Para cada empleado indicar con una leyenda aclaratoria si trabajó de más, i
 */
 
 #include <iostream>
-using namespace std;
 
-void main(){
+
+int main(){
 }
