@@ -40,6 +40,7 @@ int main(){
     bool disqualified = 0;  // Descalificado en una vuelta *
     bool flag_disq = 0;     // Descalificado al menos una vez
     int count_disq = 0;     // Contador de descalificados
+    int count_final;        // Contador de descalificados en última vuelta
 
     do{
         std::cout << "Código de participante:" << std::endl;
@@ -71,6 +72,10 @@ int main(){
             if(disqualified == 1){
                 flag_disq = 1;
                 disqualified = 0;
+            }
+
+            if(disqualified == 1 && lap == 4){
+                count_final ++;
             }
 
             do{
@@ -108,6 +113,7 @@ int main(){
         }
     }
 
-    std::cout << "Ganador:" << min_time_car << std::endl;                       // A
-    std::cout << "Cantidad de descalificados:" << count_disq << std::endl;      // B
+    std::cout << "Ganador:" << min_time_car << std::endl;                                           // A
+    std::cout << "Cantidad de descalificados:" << count_disq << std::endl;                          // B
+    std::cout << "Cantidad de descalificados en última vuelta:" << count_final << std::endl;        // C
 }
