@@ -26,7 +26,7 @@ d) ¿Cual fue el sueldo máximo y a que categoría pertenece?
 #include <iostream>
 
 int main(){
-    int n_e = 50;       // cantidad de empleados
+    int n_e = 10;       // cantidad de empleados
     int years;          // años de antiguedad
     float bon = 1200;   // bonificación por año [$]
     int cat;            // categoría
