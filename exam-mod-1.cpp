@@ -30,6 +30,7 @@ D) Por cada participante, el porcentaje de vueltas descalificadas y el porcentaj
 #include <iostream>
 
 int main(){
+    bool flag_init = 0;     // El programa inició (entró al ciclo interno por primera vez)
     int car;                // Código de participante *
     int lap;                // Número de vuelta *
     float time;             // Tiempo empleado por vuelta *
@@ -39,8 +40,6 @@ int main(){
     bool disqualified = 0;  // Descalificado en una vuelta *
     bool flag_disq = 0;     // Descalificado al menos una vez
     int count_disq = 0;     // Contador de descalificados
-    bool flag_started = 0;  // El programa inició (entró al ciclo interno por primera vez)
-    bool flag_ended = 0;    // El programa terminó (salió del ciclo interno por última vez)
 
     std::cout << "Código de participante:" << std::endl;
     std::cin >> car;
@@ -48,11 +47,11 @@ int main(){
     while(0 <= car){
 
         for(int i = 1; i <= 4; i++){
-            if(flag_started == 1){
+            if(flag_init == 1){
                 std::cout << "Código de participante:" << std::endl;
                 std::cin >> car;
             } else{
-                flag_started = 1;
+                flag_init = 1;
             }
             
             if(0 <= car){
