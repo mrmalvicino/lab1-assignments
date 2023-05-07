@@ -81,20 +81,22 @@ int main(){
             }
         }
 
-        if(accu_time < min_time && percentage_disq == 0 && 0 <= car){
-            min_time = accu_time;
-            min_time_car = car;
-            accu_time = 0;
-        } else{
-            accu_time = 0;
-        }
+        if(0 <= car){
+            if(accu_time < min_time && percentage_disq == 0){
+                min_time = accu_time;
+                min_time_car = car;
+                accu_time = 0;
+            } else{
+                accu_time = 0;
+            }
 
-        std::cout << "Porcentaje de vueltas descalificadas:" << percentage_disq * 100 << "%" << std::endl; // D
-        std::cout << "Porcentaje de vueltas no descalificadas:" << (1 - percentage_disq) * 100 << "%" << std::endl; // D
+            std::cout << "Porcentaje de vueltas descalificadas:" << percentage_disq * 100 << "%" << std::endl; // D
+            std::cout << "Porcentaje de vueltas no descalificadas:" << (1 - percentage_disq) * 100 << "%" << std::endl; // D
 
-        if(0 < percentage_disq){
-            count_disq ++;
-            percentage_disq = 0;
+            if(0 < percentage_disq){
+                count_disq ++;
+                percentage_disq = 0;
+            }
         }
     }
 
