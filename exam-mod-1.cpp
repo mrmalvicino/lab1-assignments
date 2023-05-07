@@ -30,23 +30,25 @@ D) Por cada participante, el porcentaje de vueltas descalificadas y el porcentaj
 #include <iostream>
 
 int main(){
-    bool flag_init = 0;     // El programa inició (entró al ciclo interno por primera vez)
-    int car;                // Código de participante *
-    int lap;                // Número de vuelta *
-    float time;             // Tiempo empleado por vuelta *
-    float accu_time = 0;    // Acumulador de tiempo
-    float min_time = 1440;  // Tiempo mínimo
-    int min_time_car;       // Participante que tardó menos tiempo
-    bool disqualified = 0;  // Descalificado en una vuelta *
-    bool flag_disq = 0;     // Descalificado al menos una vez
-    int count_disq = 0;     // Contador de descalificados
+    bool flag_init = 0;         // El programa inició (entró al ciclo interno por primera vez)
+    int car;                    // Código de participante *
+    int lap;                    // Número de vuelta *
+    int tot_laps = 4;           // Total de vueltas por participante
+    float time;                 // Tiempo empleado por vuelta *
+    float accu_time = 0;        // Acumulador de tiempo
+    float min_time = 1440;      // Tiempo mínimo
+    int min_time_car;           // Participante que tardó menos tiempo
+    bool disqualified = 0;      // Descalificado en una vuelta *
+    float percentage_disq = 0;  // Porcentaje de vueltas descalificadas por participante
+    int count_disq = 0;         // Contador de descalificados
+    int count_fair = 0;         // Contador de participantes no descalificados en la última vuelta
 
     std::cout << "Código de participante:" << std::endl;
     std::cin >> car;
 
     while(0 <= car){
 
-        for(int i = 1; i <= 4; i++){
+        for(int i = 1; i <= tot_laps; i++){
             if(flag_init == 1){
                 std::cout << "Código de participante:" << std::endl;
                 std::cin >> car;
@@ -66,15 +68,19 @@ int main(){
                 
                 accu_time = accu_time + time;
                 
+                if(disqualified == 0 && i == 4){
+                    count_fair ++;
+                }
+
                 if(disqualified == 1){
-                    flag_disq = 1;
+                    percentage_disq = percentage_disq + 1/tot_laps;
                     disqualified = 0;
                 }
             }
         }
 
         if(0 <= car){
-            if(accu_time < min_time && flag_disq == 0){
+            if(accu_time < min_time && percentage_disq == 0){
                 min_time = accu_time;
                 min_time_car = car;
                 accu_time = 0;
@@ -82,13 +88,17 @@ int main(){
                 accu_time = 0;
             }
 
-            if(flag_disq == 1){
+            std::cout << "Porcentaje de vueltas descalificadas:" << percentage_disq * 100 << "%" << std::endl; // D
+            std::cout << "Porcentaje de vueltas no descalificadas:" << (1 - percentage_disq) * 100 << "%" << std::endl; // D
+
+            if(0 < percentage_disq){
                 count_disq ++;
-                flag_disq = 0;
+                percentage_disq = 0;
             }
         }
     }
 
     std::cout << "Ganador:" << min_time_car << std::endl; // A
     std::cout << "Cantidad de descalificados:" << count_disq << std::endl; // B
+    std::cout << "Cantidad de participantes no descalificados en la última vuelta:" << count_fair << std::endl; // C
 }
