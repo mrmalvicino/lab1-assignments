@@ -31,89 +31,65 @@ D) Por cada participante, el porcentaje de vueltas descalificadas y el porcentaj
 
 int main(){
     int car;                // Código de participante *
-    int car_status;         // Código de participante actual
     int lap;                // Número de vuelta *
     float time;             // Tiempo empleado por vuelta *
-    float acc_time = 0;     // Acumulador de tiempo
+    float accu_time = 0;    // Acumulador de tiempo
     float min_time = 1440;  // Tiempo mínimo
-    int min_time_car = 1;   // Participante que tardó menos tiempo
+    int min_time_car;       // Participante que tardó menos tiempo
     bool disqualified = 0;  // Descalificado en una vuelta *
     bool flag_disq = 0;     // Descalificado al menos una vez
     int count_disq = 0;     // Contador de descalificados
-    int count_final;        // Contador de descalificados en última vuelta
+    bool flag_started = 0;  // El programa inició (entró al ciclo interno por primera vez)
+    bool flag_ended = 0;    // El programa terminó (salió del ciclo interno por última vez)
 
-    do{
-        std::cout << "Código de participante:" << std::endl;
-        std::cin >> car;
-    } while(car < 0);
+    std::cout << "Código de participante:" << std::endl;
+    std::cin >> car;
 
-    do{
-        std::cout << "Número de vuelta:" << std::endl;
-        std::cin >> lap;
-    } while(lap < 1 && 4 < lap);
+    while(0 <= car){
 
-    do{
-        std::cout << "Tiempo empleado en vuelta:" << std::endl;
-        std::cin >> time;
-    } while(time <= 0);
-
-    do{
-        std::cout << "Descalificado:" << std::endl;
-        std::cin >> disqualified;
-    } while(disqualified != 0 && disqualified != 1);
-
-    while(car != 0){
-
-        car_status = car;
-
-        while(car == car_status){
-            acc_time = acc_time + time;
-            
-            if(disqualified == 1){
-                flag_disq = 1;
-                disqualified = 0;
-            }
-
-            if(disqualified == 1 && lap == 4){
-                count_final ++;
-            }
-
-            do{
+        for(int i = 1; i <= 4; i++){
+            if(flag_started == 1){
                 std::cout << "Código de participante:" << std::endl;
                 std::cin >> car;
-            } while(car < 0);
-
-            do{
+            } else{
+                flag_started = 1;
+            }
+            
+            if(0 <= car){
                 std::cout << "Número de vuelta:" << std::endl;
                 std::cin >> lap;
-            } while(lap < 1 && 4 < lap);
 
-            do{
                 std::cout << "Tiempo empleado en vuelta:" << std::endl;
                 std::cin >> time;
-            } while(time <= 0);
-
-            do{
+                
                 std::cout << "Descalificado:" << std::endl;
                 std::cin >> disqualified;
-            } while(disqualified != 0 && disqualified != 1);
+                
+                accu_time = accu_time + time;
+                
+                if(disqualified == 1){
+                    flag_disq = 1;
+                    disqualified = 0;
+                }
+            }
         }
 
-        if(acc_time < min_time && flag_disq == 0){
-            min_time = acc_time;
-            min_time_car = car_status;
-            acc_time = 0;
-        } else{
-            acc_time = 0;
-        }
+        if(0 <= car){
+            if(accu_time < min_time && flag_disq == 0){
+                min_time = accu_time;
+                min_time_car = car;
+                accu_time = 0;
+            } else{
+                accu_time = 0;
+            }
 
-        if(flag_disq == 1){
-            count_disq ++;
-            flag_disq = 0;
+            if(flag_disq == 1){
+                count_disq ++;
+                flag_disq = 0;
+            }
         }
     }
 
-    std::cout << "Ganador:" << min_time_car << std::endl;                                           // A
-    std::cout << "Cantidad de descalificados:" << count_disq << std::endl;                          // B
-    std::cout << "Cantidad de descalificados en última vuelta:" << count_final << std::endl;        // C
+    std::cout << "Ganador:" << min_time_car << std::endl; // A
+    std::cout << "Cantidad de descalificados:" << count_disq << std::endl; // B
 }
