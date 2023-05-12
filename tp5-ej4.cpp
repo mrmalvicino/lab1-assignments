@@ -27,26 +27,20 @@ int main(){
     float A;        // Importe [$] para encomiendas menores a 10 kg
     float B;        // Importe [$] para encomiendas de 10 a 40 kg
     float C;        // Importe [$] para encomiendas mayores a 40 kg
-    float m = 1;    // Peso [kg] de una encomienda
+    float m = 1;    // Peso [kg] de una encomienda *
     float val;      // Facturación [$] de una encomienda
     float tot;      // Facturación [$] total
     float c = 0;    // Carga [kg] de un camión
     int n = 1;      // Número de camiones usados
 
-    do{
-            std::cout << "Importe [$] para encomiendas menores a 10 kg:" << std::endl;
-            std::cin >> A;
-        } while(A < 0);
+    std::cout << "Importe [$] para encomiendas menores a 10 kg:" << std::endl;
+    std::cin >> A;
     
-    do{
-            std::cout << "Importe [$] para encomiendas de 10 a 40 kg:" << std::endl;
-            std::cin >> B;
-        } while(B < 0);
+    std::cout << "Importe [$] para encomiendas de 10 a 40 kg:" << std::endl;
+    std::cin >> B;
     
-    do{
-            std::cout << "Importe [$] para encomiendas mayores a 40 kg:" << std::endl;
-            std::cin >> C;
-        } while(C < 0);
+    std::cout << "Importe [$] para encomiendas mayores a 40 kg:" << std::endl;
+    std::cin >> C;
 
     while(0 < m){
         std::cout << "Peso [kg] de la encomienda:" << std::endl;
@@ -71,9 +65,6 @@ int main(){
             tot = tot + val;
 
             std::cout << "Se facturó $" << val << " por encomienda de " << m << " kg despachada en el camion n. " << n << std::endl;
-        } else{
-            std::cout << "Solo se admiten cargas menores a 200 kg." << std::endl;
-            m = 0;
         }
     }
 
