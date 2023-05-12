@@ -14,5 +14,21 @@ Hacer un programa para ingresar por teclado los valores de los 3 dados e informa
 #include <iostream>
 
 int main(){
+    int N;                  // Dado tirado
+    int score = 0;          // Puntaje
 
+    for(int i = 1; i <= 3; i++){
+        std::cout << "Ingresar valor del dado " << i << ":" << std::endl;
+        std::cin >> N;
+
+        if(N % 2 == 0){
+            score = score + N;
+        }
+        
+        if(i == 3){
+            score = score * N;
+        }
+    }
+
+    std::cout << "Puntaje obtenido: " << score << std::endl;
 }
