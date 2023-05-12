@@ -23,10 +23,11 @@ f) El nro. de sucursal que recibió más cantidad de depósitos (sin importar el
 #include <iostream>
 
 int main(){
-    int cli = 1;            // número de cliente (100 < cli < 1200)
-    int bank;               // número de sucursal (1,2 o 3)
-    char type;              // tipo de transacción ('D' para depósitos,'E' para extracciones)
-    float amount;           // monto de transacción [$]
+    bool flag_init = 0;     // El programa entró al ciclo interno
+    int cli;                // número de cliente *
+    int bank;               // número de sucursal *
+    char type;              // tipo de transacción *
+    float amount;           // monto de transacción *
     int n_dep = 0;          // cantidad de depósitos mayores a $1000
     float max_ext = 0;      // valor de la extracción máxima [$]
     int max_ext_cli;        // cliente que realizó la máxima extracción
@@ -43,27 +44,26 @@ int main(){
     int n_dep_3 = 0;        // cantidad de depósitos en sucursal 3
     int max_dep_bank = 1;   // sucursal en la que se realizó más depósitos
 
+    std::cout << "Número de cliente:" << std::endl;
+    std::cin >> cli;
+
     while(cli != 0){
-        do{
+        if(flag_init = 1){
             std::cout << "Número de cliente:" << std::endl;
             std::cin >> cli;
-        } while((cli != 0 && cli < 100) || 1200 < cli);
+        } else{
+            flag_init = 1;
+        }
 
         if(cli != 0){
-            do{
-                std::cout << "Número de sucursal:" << std::endl;
-                std::cin >> bank;
-            } while(bank < 1 || 3 < bank);
+            std::cout << "Número de sucursal:" << std::endl;
+            std::cin >> bank;
 
-            do{
-                std::cout << "Tipo de transacción:" << std::endl;
-                std::cin >> type;
-            } while(type != 'D' && type != 'd' && type != 'E' && type != 'e');
+            std::cout << "Tipo de transacción:" << std::endl;
+            std::cin >> type;
 
-            do{
-                std::cout << "Monto:" << std::endl;
-                std::cin >> amount;
-            } while(amount <= 0);
+            std::cout << "Monto:" << std::endl;
+            std::cin >> amount;
 
             if(1000 < amount && (type == 'D' || type == 'd')){
                 n_dep ++;
