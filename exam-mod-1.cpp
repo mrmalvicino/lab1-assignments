@@ -36,8 +36,9 @@ int main(){
     int tot_laps = 4;           // Total de vueltas por participante
     float time;                 // Tiempo empleado por vuelta *
     float accu_time = 0;        // Acumulador de tiempo
-    float min_time = 1440;      // Tiempo mínimo
+    float min_time;             // Tiempo mínimo
     int min_time_car;           // Participante que tardó menos tiempo
+    bool flag_min = 0;          // Bandera: Se registró algún mínimo?
     bool disqualified = 0;      // Descalificado en una vuelta *
     float percentage_disq = 0;  // Porcentaje de vueltas descalificadas por participante
     int count_disq = 0;         // Contador de descalificados
@@ -82,11 +83,17 @@ int main(){
         }
 
         if(0 <= car){
-            if(accu_time < min_time && percentage_disq == 0){
+            if(flag_min == 1){
+                if(accu_time < min_time && percentage_disq == 0){
+                    min_time = accu_time;
+                    min_time_car = car;
+                    accu_time = 0;
+                } else{
+                    accu_time = 0;
+                }
+            } else{
                 min_time = accu_time;
                 min_time_car = car;
-                accu_time = 0;
-            } else{
                 accu_time = 0;
             }
 
