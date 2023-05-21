@@ -133,6 +133,7 @@ int main(){
         cant_libros_P = 0;
     }
 
+    // ITEM (c)
     std::cout << "Número de vendedor que efectuó la venta individual de mayor importe: " << max_vendedor << std::endl;
     std::cout << "Sucursal en la que se vendió el máximo importe: " << max_sucursal << std::endl;
     std::cout << "Día en el que se vendió el máximo importe: " << max_dia << std::endl;
