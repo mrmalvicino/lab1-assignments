@@ -50,6 +50,7 @@ int main(){
     int max_vendedor;               // Vendedor que vendió el máximo importe
     int max_sucursal;               // Sucursal en la que se vendió el máximo importe
     int max_dia;                    // Día en el que se vendió el máximo importe
+    bool flag_max = 0;              // Se registró el primer máximo
 
     std::cout << "Sucursal de la venta:" << std::endl;
     std::cin >> sucursal;
@@ -90,6 +91,21 @@ int main(){
             
             acu_comision = acu_comision + porcentaje * importe;
 
+            if(flag_max == 1){
+                if(max_importe < importe){
+                    max_importe = importe;
+                    max_vendedor = N_vendedor;
+                    max_sucursal = sucursal;
+                    max_dia = dia;
+                }
+            } else{
+                max_importe = importe;
+                max_vendedor = N_vendedor;
+                max_sucursal = sucursal;
+                max_dia = dia;
+                flag_max = 1;
+            }
+
             std::cout << "Sucursal de la venta:" << std::endl;
             std::cin >> sucursal;
             
@@ -111,4 +127,8 @@ int main(){
         std::cout << "Cantidad de libros de B vendidos: " << cant_libros_B << std::endl;
         std::cout << "Cantidad de libros de P vendidos: " << cant_libros_P << std::endl;
     }
+
+    std::cout << "Número de vendedor que efectuó la venta individual de mayor importe: " << max_vendedor << std::endl;
+    std::cout << "Sucursal en la que se vendió el máximo importe: " << max_sucursal << std::endl;
+    std::cout << "Día en el que se vendió el máximo importe: " << max_dia << std::endl;
 }
