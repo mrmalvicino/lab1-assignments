@@ -43,6 +43,13 @@ int main(){
     float const COMISION_P = 0.15;  // Porcentaje de comisión para Perez
     float porcentaje;               // Porcentaje de comisión por la venta
     float acu_comision = 0;         // Comisión total pagada a todos los vendedores
+    int cant_libros_A = 0;          // Cantidad de libros de A vendidos
+    int cant_libros_B = 0;          // Cantidad de libros de B vendidos
+    int cant_libros_P = 0;          // Cantidad de libros de P vendidos
+    float max_importe;              // Importe máximo
+    int max_vendedor;               // Vendedor que vendió el máximo importe
+    int max_sucursal;               // Sucursal en la que se vendió el máximo importe
+    int max_dia;                    // Día en el que se vendió el máximo importe
 
     std::cout << "Sucursal de la venta:" << std::endl;
     std::cin >> sucursal;
@@ -69,12 +76,15 @@ int main(){
             switch(editorial){
                 case 'A':
                     porcentaje = COMISION_A;
+                    cant_libros_A ++;
                     break;
                 case 'B':
                     porcentaje = COMISION_B;
+                    cant_libros_B ++;
                     break;
                 case 'P':
                     porcentaje = COMISION_P;
+                    cant_libros_P ++;
                     break;
             }
             
@@ -93,6 +103,12 @@ int main(){
             std::cin >> importe;
         }
 
+        // ITEM (a)
         std::cout << "Comisión total de todos los vendedores de la sucursal " << sucursal_actual << ": " << acu_comision << std::endl;
+
+        // ITEM (b)
+        std::cout << "Cantidad de libros de A vendidos: " << cant_libros_A << std::endl;
+        std::cout << "Cantidad de libros de B vendidos: " << cant_libros_B << std::endl;
+        std::cout << "Cantidad de libros de P vendidos: " << cant_libros_P << std::endl;
     }
 }
