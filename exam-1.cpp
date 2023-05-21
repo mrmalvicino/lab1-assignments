@@ -104,6 +104,9 @@ int main(){
         flag_M = 0;
 
         std::cout << "Promedio de horas trabajadas por turno en el horario de la noche: " << accu_hrs_N / static_cast<float>(n_N) << std::endl;
+        
+        accu_hrs_N = 0;
+        n_N = 0;
 
         std::cout << "Legajo del enfermero:" << std::endl;
         std::cin >> doc;
