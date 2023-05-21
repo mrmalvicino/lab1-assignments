@@ -126,6 +126,11 @@ int main(){
         std::cout << "Cantidad de libros de A vendidos: " << cant_libros_A << std::endl;
         std::cout << "Cantidad de libros de B vendidos: " << cant_libros_B << std::endl;
         std::cout << "Cantidad de libros de P vendidos: " << cant_libros_P << std::endl;
+
+        acu_comision = 0;
+        cant_libros_A = 0;
+        cant_libros_B = 0;
+        cant_libros_P = 0;
     }
 
     std::cout << "Número de vendedor que efectuó la venta individual de mayor importe: " << max_vendedor << std::endl;
