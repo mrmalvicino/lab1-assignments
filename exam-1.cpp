@@ -40,9 +40,10 @@ int main(){
     bool flag_T = 0;            // Enfermero realizó al menos un turno tarde
     bool flag_M = 0;            // Enfermero realizó al menos un turno mañana
     int n_NTM = 0;              // Cantidad de enfermeros que realizaron al menos un turno en los tres horarios
-    int min_hrs;                // Mínimo de cantidad de horas trabajadas
-    char min_type;              // Horario en el que se trabajó el turno más corto
-    bool flag_min = 0;          // Se registró el primer mínimo?
+    int accu_N = 0;             // Cantidad de horas trabajadas en turno N
+    int accu_T = 0;             // Cantidad de horas trabajadas en turno T
+    int accu_M = 0;             // Cantidad de horas trabajadas en turno M
+    char min_type;              // Horario que acumuló menos horas trabajadas
 
     std::cout << "Legajo del enfermero:" << std::endl;
     std::cin >> doc;
@@ -67,28 +68,20 @@ int main(){
             switch(type){
                 case 'N':
                     flag_N = 1;
+                    accu_N = accu_N + hrs;
                     break;
                 case 'T':
                     flag_T = 1;
+                    accu_T = accu_T + hrs;
                     break;
                 case 'M':
                     flag_M = 1;
+                    accu_M = accu_M + hrs;
                     break;
             }
 
             if(8 < hrs){
                 accu_hrs_extra = accu_hrs_extra + hrs - 8;
-            }
-
-            if(flag_min == 1){
-                if(hrs < min_hrs){
-                    min_hrs = hrs;
-                    min_type = type;
-                }
-            } else{
-                min_hrs = hrs;
-                min_type = type;
-                flag_min = 1;
             }
 
             std::cout << "Número de turno:" << std::endl;
@@ -112,7 +105,15 @@ int main(){
         std::cin >> doc;
     }
 
+    if(accu_N < accu_M & accu_N < accu_T){
+        min_type = 'N';
+    } else if(accu_T < accu_M){
+        min_type = 'T';
+    } else{
+        min_type = 'M';
+    }
+
     std::cout << "Cantidad total de horas extras realizadas entre todos los enfermeros: " << accu_hrs_extra << std::endl;
     std::cout << "Cantidad de enfermeros que realizaron al menos un turno en los tres horarios: " << n_NTM << std::endl;
-    std::cout << "Horario que registró el turno más corto: " << min_type << std::endl;
+    std::cout << "Horario que acumuló menos horas trabajadas: " << min_type << std::endl;
 }
