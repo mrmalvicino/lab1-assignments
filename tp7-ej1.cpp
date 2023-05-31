@@ -19,10 +19,6 @@ bool is_multiple(int n_1, int n_2){
 }
 
 int main(){
-    int n_1, n_2;
-    std::cout << "Ingrese un numero: " << std::endl;
-    std::cin >> n_1;
-    std::cout << "Ingrese un numero: " << std::endl;
-    std::cin >> n_2;
-    std::cout << is_multiple(n_1, n_2) << std::endl;
+    std::cout << is_multiple(4, 2) << std::endl;
+    std::cout << is_multiple(5, 2) << std::endl;
 }
