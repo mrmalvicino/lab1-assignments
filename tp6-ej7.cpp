@@ -23,28 +23,27 @@ int main(){
     }
 
     std::cout << "Ingresar el número a insertar:" << std::endl;
-    std::cin >> aux_1;
+    std::cin >> aux_1; // aux_1 es inicialmente el valor a insertar, pero luego es usado como variable auxiliar
 
-    if(aux_1 < arr[0]){
-        flag = 1;
-        aux_2 = aux_1;
-    }
-
-    for(int i = 0; i < ARR_N; i++){
-        if(flag == 1){
-            aux_1 = arr[i];
-            arr[i] = aux_2;
-            aux_2 = aux_1;
-        } else if(arr[i] < aux_1 && aux_1 < arr[i+1]){
-            flag = 1;
-            aux_2 = arr[i+1];
-            arr[i+1] = aux_1;
-            i++;
-        }
-    }
-
-    if(arr[ARR_N-1] < aux_1){
+    if(arr[ARR_N-2] < aux_1){ // Solo entra si aux_1 tiene que ser el último elemento del vector
         arr[ARR_N-1] = aux_1;
+    } else{
+        if(aux_1 < arr[0]){ // Solo entra si aux_1 tiene que ser el primer elemento del vector
+            flag = 1;
+            aux_2 = aux_1;
+        }
+        for(int i = 0; i < ARR_N; i++){
+            if(flag == 1){
+                aux_1 = arr[i];
+                arr[i] = aux_2;
+                aux_2 = aux_1;
+            } else if(arr[i] < aux_1 && aux_1 < arr[i+1]){ // Solo entra si aux_1 tiene que estar entre el primer y el último elemento del vector
+                flag = 1;
+                aux_2 = arr[i+1];
+                arr[i+1] = aux_1;
+                i++;
+            }
+        }
     }
 
     std::cout << "Se insertó el número ingresado en el vector:" << std::endl;
