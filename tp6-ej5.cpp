@@ -8,10 +8,12 @@ Sólo deben utilizarse dos vectores en el programa: pos y nega.
 #include <iostream>
 
 int main(){
-    int const N = 10;
+    int const N = 100;
     float pos[N] = {};
     float neg[N] = {};
     float var;
+
+    std::cout << "Ingresar " << N << " números:" << std::endl;
 
     for(int i = 0; i < N; i++){
         std::cin >> var;
@@ -22,8 +24,15 @@ int main(){
         }
     }
 
+    std::cout << "Vector de números positivos:"<< std::endl;
+
     for(int i = 0; i < N; i++){
-        std::cout << "pos[" << i << "] = " << pos[i] << " ; ";
-        std::cout << "neg[" << i << "] = " << neg[i] << " ; ";
+        std::cout << pos[i] << " ; ";
+    }
+
+    std::cout << "Vector de números negativos:"<< std::endl;
+
+    for(int i = 0; i < N; i++){
+        std::cout << neg[i] << " ; ";
     }
 }
