@@ -26,8 +26,10 @@ int char_arr_length(char arr[]){
 }
 
 int main(){
-    char arr[11] = {'H', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd'};
-    std::cout << char_arr_length(arr) << std::endl;
+    char arr_1[13] = {'H', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd', '!', '\0'};
+    char arr_2[] = "Hello world!";
+    std::cout << char_arr_length(arr_1) << std::endl;
+    std::cout << char_arr_length(arr_2) << std::endl;
 }
 
 /*
