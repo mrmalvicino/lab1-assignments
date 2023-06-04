@@ -31,6 +31,8 @@ int main(){
     int const TYPE_M = 10;
     int const ARR_M = TYPE_M - TYPE_0 + 1;
     int mat_arr[ARR_M][ARR_N] = {};
+    int max_client;
+    int max_time = 0;
 
     std::cout << "Ingresar número de entrenamiento:" << std::endl;
     std::cin >> train_num;
@@ -62,6 +64,8 @@ int main(){
             std::cout << "Tiempo de entrenamiento de tipo " << i + TYPE_0 << ":" << std::endl;
             std::cout << time_type_i / 60 << " h  " << time_type_i % 60 << " min" << std::endl;
             std::cout << time_type_i << " min" << std::endl;
+        } else{
+            std::cout << "Ningún cliente realizó el entrenamiento de tipo " << i + TYPE_0 << std::endl;
         }
     }
 
@@ -72,16 +76,27 @@ int main(){
 
         for(int i = 0; i < ARR_M; i++){
             time_client_j += mat_arr[i][j];
+            if(mat_arr[i][j] != 0){
+                std::cout << "El cliente " << j + CLIENT_0 << " realizó el entrenamiento de tipo " << i + TYPE_0 << std::endl;
+            }
         }
 
         if(0 < time_client_j){
             std::cout << "Tiempo de entrenamiento del cliente " << j + CLIENT_0 << ":" << std::endl;
             std::cout << time_client_j / 60 << " h  " << time_client_j % 60 << " min" << std::endl;
-            std::cout << time_client_j << " min" << std::endl;
+            std::cout << time_client_j << " min" << std::endl << std::endl;
+        }
+
+        if(max_time < time_client_j){
+            max_time = time_client_j;
+            max_client = j + CLIENT_0;
         }
     }
+
+    std::cout << "Cliente que más tiempo entrenó: " << max_client << std::endl;
 }
 
 /*
-./bin/tp6-ej8
+Compile and run in terminal:
+./bin/tp6-ej8 < ./bin/tp6-ej8.txt
 */
