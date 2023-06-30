@@ -91,7 +91,10 @@ void procesar_datos(int lote_de_proceso[][5][31], int CANT_EMP){
         std::cout << "Insertar numero de empleado:" << std::endl;
         std::cin >> num_de_emp;
 
-        indices_de_legajos[num_de_emp - 1] = j + 1;
+        if(indices_de_legajos[num_de_emp - 1] == 0){
+            j ++;
+            indices_de_legajos[num_de_emp - 1] = j + 1;
+        }
     }
 }
 
