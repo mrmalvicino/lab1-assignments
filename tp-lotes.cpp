@@ -58,7 +58,7 @@ void cargar_datos(EMPLEADO lote_de_carga[], int const CANT_EMP){
     }
 }
 
-void cargar_procesos(int lote_de_proceso[][200][31], int CANT_EMP){ // No pude no hardcodear CANT_EMP y CANT_DIAS en las dimensiones de la matriz.
+void procesar_datos(int lote_de_proceso[][20][31], int CANT_EMP){
     int dia;
     int num_de_emp;
     int horas_trabajadas;
@@ -88,68 +88,48 @@ void cargar_procesos(int lote_de_proceso[][200][31], int CANT_EMP){ // No pude n
 
 int main(){
     int const CANT_VARS = 3;
-    int const CANT_EMP = 200;
+    int const CANT_EMP = 20;
     int const CANT_DIAS = 31;
     int const PREMIO = 200;
-    int emp_actual;
     int max_dia;
     int max_horas = 0;
-    int tot_a_cobrar = 0;
-    int cant_jornales_cobrados = 0;
-    int max_sueldo = 0;
-    int max_cat;
+    int cant_dias_cobrados = 0;
+    bool legajo_registrado;
     EMPLEADO lote_de_carga[CANT_EMP] = {}; // Vector que tiene en cada componente un dato de tipo EMPLEADO.
     SUELDO sueldos[CANT_EMP] = {}; // Vector que tiene en cada componente un dato de tipo SUELDO.
     int lote_de_proceso[CANT_VARS][CANT_EMP][CANT_DIAS] = {}; // Matriz que tiene por columnas los empleados, por filas el legajo, las horas y el sueldo y en la tercer dimension los dias del mes.
 
     cargar_datos(lote_de_carga, CANT_EMP);
-    cargar_procesos(lote_de_proceso, CANT_EMP);
+    procesar_datos(lote_de_proceso, CANT_EMP);
 
     for(int j = 0; j < CANT_EMP; j ++){ // Por cada empleado
+        legajo_registrado = false;
+
         for(int k = 0; k < CANT_DIAS; k ++){ // Por cada dia
-            if(lote_de_proceso[0][j][k] != 0){ // Esto es solo para luego informar cada legajo. No se me ocurrio como hacerlo sin tener que entrar a este if en cada vuelta.
-                emp_actual = lote_de_proceso[0][j][k]; 
+            if(lote_de_proceso[0][j][k] != 0 && legajo_registrado == false){
+                sueldos[j].num_de_emp = lote_de_proceso[0][j][k];
+                legajo_registrado = true;
             }
             
-            if(max_horas < lote_de_proceso[1][j][k]){ // Punto A
-                max_dia = k + 1;
+            if(max_horas < lote_de_proceso[1][j][k]){
                 max_horas = lote_de_proceso[1][j][k];
+                max_dia = k + 1;
             }
 
-            if(lote_de_proceso[2][j][k] != 0){ // Punto B
-                tot_a_cobrar += lote_de_proceso[2][j][k];
-                cant_jornales_cobrados ++;
-            }
-        }
-
-        if(20 < cant_jornales_cobrados){
-            tot_a_cobrar += PREMIO;
-        }
-
-        sueldos[j].num_de_emp = emp_actual;
-        sueldos[j].sueldo = tot_a_cobrar;
-
-        for(int i = 0; i < CANT_EMP; i ++){ // Fetchiar categoria del EMPLEADO
-            if(sueldos[j].num_de_emp == lote_de_carga[i].num_de_emp){
-                sueldos[j].categoria = lote_de_carga[i].categoria;
+            if(lote_de_proceso[2][j][k] != 0){
+                sueldos[j].sueldo += lote_de_proceso[2][j][k];
+                cant_dias_cobrados ++;
             }
         }
 
-        std::cout << "El empleado " << emp_actual << " trabajo un maximo de " << max_horas << " horas el dia " << max_dia << std::endl;
-        std::cout << "El empleado " << emp_actual << " tiene para cobrar " << tot_a_cobrar << std::endl;
+        if(20 < cant_dias_cobrados){
+            sueldos[j].sueldo += PREMIO;
+        }
 
-        tot_a_cobrar = 0;
-        cant_jornales_cobrados = 0;
+        std::cout << "EMPLEADO " << sueldos[j].num_de_emp << std::endl;
+        std::cout << "Maximo de horas trabajadas: " << max_horas << " horas en dia " << max_dia << std::endl;
+        std::cout << "Sueldo: $" << sueldos[j].sueldo << std::endl;
     }
-
-    for(int i = 0; i < CANT_EMP; i ++){
-        if(max_sueldo < sueldos[i].sueldo){
-            max_sueldo = sueldos[i].sueldo;
-            max_cat = sueldos[i].categoria;
-        }
-    }
-
-    std::cout << "La categoria " << max_cat << " percibio el sueldo de mayor monto." << std::endl;
 }
 
 /*
