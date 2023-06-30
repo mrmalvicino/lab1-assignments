@@ -41,10 +41,13 @@ void cargar_datos(EMPLEADO lote_de_carga[], int const CANT_EMP){
     int antiguedad;
 
     for(int i = 0; i < CANT_EMP; i ++){
+        std::cout << "Insertar numero de empleado:" << std::endl;
         std::cin >> num_de_emp;
+        std::cout << "Insertar categoria:" << std::endl;
         std::cin >> categoria;
 
         if(categoria != 0){
+            std::cout << "Insertar antiguedad:" << std::endl;
             std::cin >> antiguedad;
             lote_de_carga[i].num_de_emp = num_de_emp;
             lote_de_carga[i].categoria = categoria;
@@ -55,18 +58,22 @@ void cargar_datos(EMPLEADO lote_de_carga[], int const CANT_EMP){
     }
 }
 
-void cargar_procesos(int lote_de_proceso[][200][31], int CANT_EMP){ // No pude no hardcodear CANT_EMP y CANT_DIAS en las dimensiones de la matriz.
+void cargar_procesos(int lote_de_proceso[][3][3], int CANT_EMP){ // No pude no hardcodear CANT_EMP y CANT_DIAS en las dimensiones de la matriz.
     int dia;
     int num_de_emp;
     int horas_trabajadas;
     int jornal_cobrado;
 
     for(int j = 0; j < CANT_EMP; j ++){
+        std::cout << "Insertar dia:" << std::endl;
         std::cin >> dia;
+        std::cout << "Insertar numero de empleado:" << std::endl;
         std::cin >> num_de_emp;
         
         if(num_de_emp != 0){
+            std::cout << "Insertar horas trabajadas:" << std::endl;
             std::cin >> horas_trabajadas;
+            std::cout << "Insertar jornal cobrado:" << std::endl;
             std::cin >> jornal_cobrado;
             lote_de_proceso[0][j][dia - 1] = num_de_emp;
             lote_de_proceso[1][j][dia - 1] = horas_trabajadas;
@@ -79,8 +86,8 @@ void cargar_procesos(int lote_de_proceso[][200][31], int CANT_EMP){ // No pude n
 
 int main(){
     int const CANT_VARS = 3;
-    int const CANT_EMP = 200;
-    int const CANT_DIAS = 31;
+    int const CANT_EMP = 3;
+    int const CANT_DIAS = 3;
     int const PREMIO = 200;
     int emp_actual;
     int max_dia;
@@ -126,10 +133,11 @@ int main(){
             }
         }
 
-        cant_jornales_cobrados = 0;
-
-        std::cout << "El empleado " << emp_actual << " trabajo " << max_horas << " el dia " << max_dia << std::endl;
+        std::cout << "El empleado " << emp_actual << " trabajo un maximo de " << max_horas << " horas el dia " << max_dia << std::endl;
         std::cout << "El empleado " << emp_actual << " tiene para cobrar " << tot_a_cobrar << std::endl;
+
+        tot_a_cobrar = 0;
+        cant_jornales_cobrados = 0;
     }
 
     for(int i = 0; i < CANT_EMP; i ++){
@@ -141,3 +149,13 @@ int main(){
 
     std::cout << "La categoria " << max_cat << " percibio el sueldo de mayor monto." << std::endl;
 }
+
+/*
+COMPILAR Y CORRER PRUEBA DE ESCRITORIO:
+g++ -o ./bin/tp-lotes tp-lotes.cpp
+./bin/tp-lotes < ./bin/test.txt
+
+COMPILAR Y EJECUTAR:
+g++ -o ./bin/tp-lotes tp-lotes.cpp
+./bin/tp-lotes
+*/
