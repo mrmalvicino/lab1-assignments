@@ -135,18 +135,20 @@ int main(){
         }
 
         if(sueldos[j].sueldo != 0){ // Punto B
-            std::cout << "EMPLEADO NUMERO " << sueldos[j].num_de_emp << std::endl;
+            std::cout << std::endl << "EMPLEADO NUMERO " << sueldos[j].num_de_emp << std::endl;
             std::cout << "- Jornada mas larga: dia " << max_dia << " (" << max_horas << " h)" << std::endl;
             std::cout << "- Sueldo percibido: $" << sueldos[j].sueldo << std::endl;
         }
 
+        max_horas = 0; // Punto A
         cant_jornadas = 0; // Punto B
     }
 
-    for(int i = 0; i < CANT_EMP; i ++){ // Punto C
-        if(sueldos[i].num_de_emp == lote_de_carga[i].num_de_emp){
-            sueldos[i].categoria = lote_de_carga[i].categoria;
-            std::cout << sueldos[i].categoria << std::endl;
+    for(int j = 0; j < CANT_EMP; j ++){ // Punto C
+        for(int i = 0; i < CANT_EMP; i ++){
+            if(sueldos[i].num_de_emp == lote_de_carga[j].num_de_emp){
+                sueldos[i].categoria = lote_de_carga[j].categoria;
+            }
         }
     }
 
@@ -165,7 +167,7 @@ int main(){
         aux = 0;
     }
 
-    std::cout << "Categoria que acumulo mas sueldo: " << max_cat << " ($" << max_acu_sueldo << ")" << std::endl; // Punto C
+    std::cout << std::endl << "Categoria que acumulo mas sueldo: " << max_cat << " ($" << max_acu_sueldo << ")" << std::endl << std::endl; // Punto C
 }
 
 /*
