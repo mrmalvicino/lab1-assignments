@@ -93,8 +93,9 @@ void procesar_datos(int lote_de_proceso[][200][31], int const CANT_EMP){
 
         if(indices_de_legajos[num_de_emp - 1] == 0){
             j ++;
-            indices_de_legajos[num_de_emp - 1] = j + 1;
         }
+        
+        indices_de_legajos[num_de_emp - 1] = j + 1;
     }
 }
 
@@ -168,6 +169,16 @@ int main(){
     }
 
     std::cout << std::endl << "Categoria que acumulo mas sueldo: " << max_cat << " ($" << max_acu_sueldo << ")" << std::endl << std::endl; // Punto C
+
+    for(int i = 0; i < 3; i ++){
+        for(int j = 0; j < CANT_EMP; j ++){
+            for(int k = 0; k < CANT_DIAS; k ++){
+                std::cout << lote_de_proceso[i][j][k] << " ";
+            }
+            std::cout << std::endl;
+        }
+        std::cout << std::endl;
+    }
 }
 
 /*
