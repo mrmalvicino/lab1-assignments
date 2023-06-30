@@ -58,7 +58,7 @@ void cargar_datos(EMPLEADO lote_de_carga[], int const CANT_EMP){
     }
 }
 
-void procesar_datos(int lote_de_proceso[][5][31], int CANT_EMP){
+void procesar_datos(int lote_de_proceso[][200][31], int const CANT_EMP){
     int const MAX_LEGAJO = 999;
     int dia;
     int num_de_emp;
@@ -99,26 +99,56 @@ void procesar_datos(int lote_de_proceso[][5][31], int CANT_EMP){
 }
 
 int main(){
-    int const CANT_VARS = 3;
-    int const CANT_EMP = 5;
-    int const CANT_DIAS = 31;
+    int const CANT_EMP = 200; // Arbitrario
+    int const CANT_DIAS = 31; // Arbitrario
+    int const CANT_CATS = 20; // Arbitrario
+    int const PREMIO = 200; // Usado en punto B
+    int max_horas = 0; // Usado en punto A
+    int max_dia; // Usado en punto A
+    int cant_jornadas = 0; // Usado en punto B
+    int max_acu_sueldo = 0; // Usado en punto C
+    int max_cat; // Usado en punto C
     EMPLEADO lote_de_carga[CANT_EMP] = {}; // Vector que tiene en cada componente un dato de tipo EMPLEADO.
     SUELDO sueldos[CANT_EMP] = {}; // Vector que tiene en cada componente un dato de tipo SUELDO.
-    int lote_de_proceso[CANT_VARS][CANT_EMP][CANT_DIAS] = {}; // Matriz que tiene por columnas los empleados, por filas el legajo, las horas y el sueldo y en la tercer dimension los dias del mes.
+    int lote_de_proceso[3][CANT_EMP][CANT_DIAS] = {}; // Matriz que tiene por columnas los empleados, por filas el legajo, las horas y el sueldo y en la tercer dimension los dias del mes.
 
     cargar_datos(lote_de_carga, CANT_EMP);
     procesar_datos(lote_de_proceso, CANT_EMP);
 
-    for(int i = 0; i < CANT_VARS; i ++){
-        for(int j = 0; j < CANT_EMP; j ++){
-            for(int k = 0; k < CANT_DIAS; k ++){
-                std::cout << lote_de_proceso[i][j][k] << " ";
+    for(int j = 0; j < CANT_EMP; j ++){
+        for(int k = 0; k < CANT_DIAS; k ++){
+            if(max_horas < lote_de_proceso[1][j][k]){ // Punto A
+                max_horas = lote_de_proceso[1][j][k];
+                max_dia = k + 1;
             }
-            std::cout << std::endl;
+            
+            if(lote_de_proceso[0][j][k] != 0){
+                sueldos[j].num_de_emp = lote_de_proceso[0][j][k]; // Puntos A, B y C
+                sueldos[j].sueldo += lote_de_proceso[2][j][k]; // Punto B
+                cant_jornadas ++; // Punto B
+            }
         }
-    std::cout << std::endl;
+
+        if(20 < cant_jornadas){ // Punto B
+            sueldos[j].sueldo += PREMIO;
+        }
+
+        if(sueldos[j].sueldo != 0){ // Punto B
+            std::cout << "EMPLEADO NUMERO " << sueldos[j].num_de_emp << std::endl;
+            std::cout << "- Jornada mas larga: dia " << max_dia << " (" << max_horas << " h)" << std::endl;
+            std::cout << "- Sueldo percibido: $" << sueldos[j].sueldo << std::endl;
+        }
+
+        cant_jornadas = 0; // Punto B
     }
 
+    for(int i = 0; CANT_EMP; i ++){
+        if(sueldos[i].num_de_emp == lote_de_carga[i].num_de_emp){
+            sueldos[i].categoria == lote_de_carga[i].categoria;
+        }
+    }
+
+    std::cout << "Categoria que acumulo mas sueldo: " << "max_cat" << " ($" << max_acu_sueldo << ")" << std::endl;
 }
 
 /*
