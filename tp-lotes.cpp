@@ -58,36 +58,38 @@ void cargar_datos(EMPLEADO lote_de_carga[], int const CANT_EMP){
     }
 }
 
-void cargar_procesos(int lote_de_proceso[][3][3], int CANT_EMP){ // No pude no hardcodear CANT_EMP y CANT_DIAS en las dimensiones de la matriz.
+void cargar_procesos(int lote_de_proceso[][200][31], int CANT_EMP){ // No pude no hardcodear CANT_EMP y CANT_DIAS en las dimensiones de la matriz.
     int dia;
     int num_de_emp;
     int horas_trabajadas;
     int jornal_cobrado;
+    int j = 0;
 
-    for(int j = 0; j < CANT_EMP; j ++){
+    std::cout << "Insertar dia:" << std::endl;
+    std::cin >> dia;
+    std::cout << "Insertar numero de empleado:" << std::endl;
+    std::cin >> num_de_emp;
+
+    while(num_de_emp != 0){
+        std::cout << "Insertar horas trabajadas:" << std::endl;
+        std::cin >> horas_trabajadas;
+        std::cout << "Insertar jornal cobrado:" << std::endl;
+        std::cin >> jornal_cobrado;
+        lote_de_proceso[0][j][dia - 1] = num_de_emp;
+        lote_de_proceso[1][j][dia - 1] = horas_trabajadas;
+        lote_de_proceso[2][j][dia - 1] = jornal_cobrado;
+        j ++;
         std::cout << "Insertar dia:" << std::endl;
         std::cin >> dia;
         std::cout << "Insertar numero de empleado:" << std::endl;
         std::cin >> num_de_emp;
-        
-        if(num_de_emp != 0){
-            std::cout << "Insertar horas trabajadas:" << std::endl;
-            std::cin >> horas_trabajadas;
-            std::cout << "Insertar jornal cobrado:" << std::endl;
-            std::cin >> jornal_cobrado;
-            lote_de_proceso[0][j][dia - 1] = num_de_emp;
-            lote_de_proceso[1][j][dia - 1] = horas_trabajadas;
-            lote_de_proceso[2][j][dia - 1] = jornal_cobrado;
-        } else{
-            j = CANT_EMP;
-        }
     }
 }
 
 int main(){
     int const CANT_VARS = 3;
-    int const CANT_EMP = 3;
-    int const CANT_DIAS = 3;
+    int const CANT_EMP = 200;
+    int const CANT_DIAS = 31;
     int const PREMIO = 200;
     int emp_actual;
     int max_dia;
