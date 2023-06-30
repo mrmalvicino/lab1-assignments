@@ -58,43 +58,47 @@ void cargar_datos(EMPLEADO lote_de_carga[], int const CANT_EMP){
     }
 }
 
-void procesar_datos(int lote_de_proceso[][20][31], int CANT_EMP){
+void procesar_datos(int lote_de_proceso[][5][31], int CANT_EMP){
+    int const MAX_LEGAJO = 999;
     int dia;
     int num_de_emp;
     int horas_trabajadas;
     int jornal_cobrado;
     int j = 0;
+    int indices_de_legajos[MAX_LEGAJO - 1] = {}; // Vector que almacena los indices de cada legajo siendo 1 el menor indice. De ser nulo, el legajo no fue cargado.
 
     std::cout << "Insertar dia:" << std::endl;
     std::cin >> dia;
     std::cout << "Insertar numero de empleado:" << std::endl;
     std::cin >> num_de_emp;
 
+    indices_de_legajos[num_de_emp - 1] = j + 1;
+
     while(num_de_emp != 0){
         std::cout << "Insertar horas trabajadas:" << std::endl;
         std::cin >> horas_trabajadas;
         std::cout << "Insertar jornal cobrado:" << std::endl;
         std::cin >> jornal_cobrado;
+
+        j = indices_de_legajos[num_de_emp - 1] - 1;
+
         lote_de_proceso[0][j][dia - 1] = num_de_emp;
         lote_de_proceso[1][j][dia - 1] = horas_trabajadas;
         lote_de_proceso[2][j][dia - 1] = jornal_cobrado;
-        j ++;
+
         std::cout << "Insertar dia:" << std::endl;
         std::cin >> dia;
         std::cout << "Insertar numero de empleado:" << std::endl;
         std::cin >> num_de_emp;
+
+        indices_de_legajos[num_de_emp - 1] = j + 1;
     }
 }
 
 int main(){
     int const CANT_VARS = 3;
-    int const CANT_EMP = 20;
+    int const CANT_EMP = 5;
     int const CANT_DIAS = 31;
-    int const PREMIO = 200;
-    int max_dia;
-    int max_horas = 0;
-    int cant_dias_cobrados = 0;
-    bool legajo_registrado;
     EMPLEADO lote_de_carga[CANT_EMP] = {}; // Vector que tiene en cada componente un dato de tipo EMPLEADO.
     SUELDO sueldos[CANT_EMP] = {}; // Vector que tiene en cada componente un dato de tipo SUELDO.
     int lote_de_proceso[CANT_VARS][CANT_EMP][CANT_DIAS] = {}; // Matriz que tiene por columnas los empleados, por filas el legajo, las horas y el sueldo y en la tercer dimension los dias del mes.
@@ -102,34 +106,16 @@ int main(){
     cargar_datos(lote_de_carga, CANT_EMP);
     procesar_datos(lote_de_proceso, CANT_EMP);
 
-    for(int j = 0; j < CANT_EMP; j ++){ // Por cada empleado
-        legajo_registrado = false;
-
-        for(int k = 0; k < CANT_DIAS; k ++){ // Por cada dia
-            if(lote_de_proceso[0][j][k] != 0 && legajo_registrado == false){
-                sueldos[j].num_de_emp = lote_de_proceso[0][j][k];
-                legajo_registrado = true;
+    for(int i = 0; i < CANT_VARS; i ++){
+        for(int j = 0; j < CANT_EMP; j ++){
+            for(int k = 0; k < CANT_DIAS; k ++){
+                std::cout << lote_de_proceso[i][j][k] << " ";
             }
-            
-            if(max_horas < lote_de_proceso[1][j][k]){
-                max_horas = lote_de_proceso[1][j][k];
-                max_dia = k + 1;
-            }
-
-            if(lote_de_proceso[2][j][k] != 0){
-                sueldos[j].sueldo += lote_de_proceso[2][j][k];
-                cant_dias_cobrados ++;
-            }
+            std::cout << std::endl;
         }
-
-        if(20 < cant_dias_cobrados){
-            sueldos[j].sueldo += PREMIO;
-        }
-
-        std::cout << "EMPLEADO " << sueldos[j].num_de_emp << std::endl;
-        std::cout << "Maximo de horas trabajadas: " << max_horas << " horas en dia " << max_dia << std::endl;
-        std::cout << "Sueldo: $" << sueldos[j].sueldo << std::endl;
+    std::cout << std::endl;
     }
+
 }
 
 /*
