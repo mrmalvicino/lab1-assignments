@@ -106,8 +106,9 @@ int main(){
     int max_horas = 0; // Usado en punto A
     int max_dia; // Usado en punto A
     int cant_jornadas = 0; // Usado en punto B
+    int max_cat = 1; // Usado en punto C
     int max_acu_sueldo = 0; // Usado en punto C
-    int max_cat; // Usado en punto C
+    int aux = 0; // Usado en punto C
     EMPLEADO lote_de_carga[CANT_EMP] = {}; // Vector que tiene en cada componente un dato de tipo EMPLEADO.
     SUELDO sueldos[CANT_EMP] = {}; // Vector que tiene en cada componente un dato de tipo SUELDO.
     int lote_de_proceso[3][CANT_EMP][CANT_DIAS] = {}; // Matriz que tiene por columnas los empleados, por filas el legajo, las horas y el sueldo y en la tercer dimension los dias del mes.
@@ -142,13 +143,29 @@ int main(){
         cant_jornadas = 0; // Punto B
     }
 
-    for(int i = 0; CANT_EMP; i ++){
+    for(int i = 0; i < CANT_EMP; i ++){ // Punto C
         if(sueldos[i].num_de_emp == lote_de_carga[i].num_de_emp){
-            sueldos[i].categoria == lote_de_carga[i].categoria;
+            sueldos[i].categoria = lote_de_carga[i].categoria;
+            std::cout << sueldos[i].categoria << std::endl;
         }
     }
 
-    std::cout << "Categoria que acumulo mas sueldo: " << "max_cat" << " ($" << max_acu_sueldo << ")" << std::endl;
+    for(int i = 0; i < CANT_CATS; i ++){ // Punto C
+        for(int j = 0; j < CANT_EMP; j ++){
+            if(sueldos[j].categoria == i + 1){
+                aux += sueldos[j].sueldo;
+            }
+        }
+
+        if(max_acu_sueldo < aux){
+            max_acu_sueldo = aux;
+            max_cat = i + 1;
+        }
+
+        aux = 0;
+    }
+
+    std::cout << "Categoria que acumulo mas sueldo: " << max_cat << " ($" << max_acu_sueldo << ")" << std::endl; // Punto C
 }
 
 /*
