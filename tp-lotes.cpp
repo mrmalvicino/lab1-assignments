@@ -180,7 +180,7 @@ int main(){
 /*
 COMPILAR Y CORRER PRUEBA DE ESCRITORIO:
 g++ -o ./bin/tp-lotes tp-lotes.cpp
-./bin/tp-lotes < ./bin/test.txt
+./bin/tp-lotes < ./tp-lotes-test.txt
 
 COMPILAR Y EJECUTAR:
 g++ -o ./bin/tp-lotes tp-lotes.cpp
