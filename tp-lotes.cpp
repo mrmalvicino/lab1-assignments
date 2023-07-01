@@ -82,6 +82,7 @@ void procesar_datos(int lote_de_proceso[][200][31], int const CANT_EMP){
     int horas_trabajadas;
     int jornal_cobrado;
     int j = 0;
+    int ultimo_j;
     int indices_de_legajos[MAX_LEGAJO + 1] = {}; // Vector que almacena los indices de cada legajo siendo 1 el menor indice. De ser nulo, el legajo no fue cargado. Su primer elemento no se usa, porque el indice de indices_de_legajos[j] representa cada num_de_emp, y por eso la cantidad de elementos es el num_de_emp maximo + 1. Ademas porque el ultimo ingreso, num_de_emp = 0, es afecta al elemento indices_de_legajos[0].
 
     std::cout << "Insertar dia:" << std::endl;
@@ -97,7 +98,7 @@ void procesar_datos(int lote_de_proceso[][200][31], int const CANT_EMP){
         std::cout << "Insertar jornal cobrado:" << std::endl;
         std::cin >> jornal_cobrado;
 
-        j = indices_de_legajos[num_de_emp] - 1; // Misma ecuacion que antes despejando j
+        j = indices_de_legajos[num_de_emp] - 1;
 
         lote_de_proceso[0][j][dia - 1] = num_de_emp;
         lote_de_proceso[1][j][dia - 1] = horas_trabajadas;
@@ -108,8 +109,11 @@ void procesar_datos(int lote_de_proceso[][200][31], int const CANT_EMP){
         std::cout << "Insertar numero de empleado:" << std::endl;
         std::cin >> num_de_emp;
 
+        j = ultimo_j;
+
         if(indices_de_legajos[num_de_emp] == 0){
             j ++;
+            ultimo_j = j;
         } else{
             j = indices_de_legajos[num_de_emp] - 1;
         }
