@@ -59,8 +59,7 @@ void cargar_datos(EMPLEADO lote_de_carga[], int const CANT_EMP){
 }
 
 void muestre_mijo(int indices_de_legajos[], int const MAX_LEGAJO){
-    for(int i = 0; i < MAX_LEGAJO; i ++){
-        std::cout << indices_de_legajos[i];
+    for(int i = 0; i < MAX_LEGAJO + 1; i ++){
         if(i % 100 == 0){
             std::cout << std::endl;
             for(int j = 0; j < 10; j ++){
@@ -69,6 +68,9 @@ void muestre_mijo(int indices_de_legajos[], int const MAX_LEGAJO){
                 }
             }
             std::cout << std::endl;
+            std::cout << indices_de_legajos[i];
+        } else{
+            std::cout << indices_de_legajos[i];
         }
     }
 }
@@ -80,7 +82,7 @@ void procesar_datos(int lote_de_proceso[][200][31], int const CANT_EMP){
     int horas_trabajadas;
     int jornal_cobrado;
     int j = 0;
-    int indices_de_legajos[MAX_LEGAJO + 1] = {}; // Vector que almacena los indices de cada legajo siendo 1 el menor indice. De ser nulo, el legajo no fue cargado. Su primer elemento no se usa, porque el indice de indices_de_legajos[j] representa cada num_de_emp, y por eso la cantidad de elementos es el num_de_emp maximo + 1.
+    int indices_de_legajos[MAX_LEGAJO + 1] = {}; // Vector que almacena los indices de cada legajo siendo 1 el menor indice. De ser nulo, el legajo no fue cargado. Su primer elemento no se usa, porque el indice de indices_de_legajos[j] representa cada num_de_emp, y por eso la cantidad de elementos es el num_de_emp maximo + 1. Ademas porque el ultimo ingreso, num_de_emp = 0, es afecta al elemento indices_de_legajos[0].
 
     std::cout << "Insertar dia:" << std::endl;
     std::cin >> dia;
@@ -108,9 +110,11 @@ void procesar_datos(int lote_de_proceso[][200][31], int const CANT_EMP){
 
         if(indices_de_legajos[num_de_emp] == 0){
             j ++;
+        } else{
+            j = indices_de_legajos[num_de_emp] - 1;
         }
         
-        indices_de_legajos[num_de_emp] = j + 1; // Misma ecuacion que antes, pero dentro del while
+        indices_de_legajos[num_de_emp] = j + 1;
     }
 
     muestre_mijo(indices_de_legajos, MAX_LEGAJO);
