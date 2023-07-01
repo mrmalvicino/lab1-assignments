@@ -58,23 +58,6 @@ void cargar_datos(EMPLEADO lote_de_carga[], int const CANT_EMP){
     }
 }
 
-void muestre_mijo(int indices_de_legajos[], int const MAX_LEGAJO){
-    for(int i = 0; i < MAX_LEGAJO + 1; i ++){
-        if(i % 100 == 0){
-            std::cout << std::endl;
-            for(int j = 0; j < 10; j ++){
-                for(int k = 0; k < 10; k ++){
-                    std::cout << k;
-                }
-            }
-            std::cout << std::endl;
-            std::cout << indices_de_legajos[i];
-        } else{
-            std::cout << indices_de_legajos[i];
-        }
-    }
-}
-
 void procesar_datos(int lote_de_proceso[][200][31], int const CANT_EMP){
     int const MAX_LEGAJO = 999;
     int dia;
@@ -90,7 +73,7 @@ void procesar_datos(int lote_de_proceso[][200][31], int const CANT_EMP){
     std::cout << "Insertar numero de empleado:" << std::endl;
     std::cin >> num_de_emp;
 
-    indices_de_legajos[num_de_emp] = j + 1; // Sumo j + 1 porque lote_de_proceso[i][j][k] funciona en base 0 pero indices_de_legajos[j] en base 1.
+    indices_de_legajos[num_de_emp] = j + 1; // Sumo j + 1 porque lote_de_proceso[i][j][k] funciona en base 0 pero indices_de_legajos[j] en base 1. Todas las ecuaciones parecidas a esta se despejan de aca.
 
     while(num_de_emp != 0){
         std::cout << "Insertar horas trabajadas:" << std::endl;
@@ -98,7 +81,7 @@ void procesar_datos(int lote_de_proceso[][200][31], int const CANT_EMP){
         std::cout << "Insertar jornal cobrado:" << std::endl;
         std::cin >> jornal_cobrado;
 
-        j = indices_de_legajos[num_de_emp] - 1;
+        j = indices_de_legajos[num_de_emp] - 1; // Todo el indexado es para poder definir el indice j en esta linea para ser usado por lote_de_proceso[i][j][k].
 
         lote_de_proceso[0][j][dia - 1] = num_de_emp;
         lote_de_proceso[1][j][dia - 1] = horas_trabajadas;
@@ -109,19 +92,17 @@ void procesar_datos(int lote_de_proceso[][200][31], int const CANT_EMP){
         std::cout << "Insertar numero de empleado:" << std::endl;
         std::cin >> num_de_emp;
 
-        j = ultimo_j;
+        j = ultimo_j; // Si en la vuelta anterior se cargo un num_de_emp que ya se habia cargado, este comando renueva el indice al mas alto para no pisar las filas posteriores que ya tienen informacion.
 
-        if(indices_de_legajos[num_de_emp] == 0){
+        if(indices_de_legajos[num_de_emp] == 0){ // Si el num_de_emp no se habia cargado nunca, incrementar indice.
             j ++;
             ultimo_j = j;
-        } else{
+        } else{ // Si num_de_emp ya se habia cargado, el indice es el que se habia guardado en indices_de_legajos[j].
             j = indices_de_legajos[num_de_emp] - 1;
         }
         
-        indices_de_legajos[num_de_emp] = j + 1;
+        indices_de_legajos[num_de_emp] = j + 1; // Agregar el indice que corresponda segun el if anterior al vector de indexado.
     }
-
-    muestre_mijo(indices_de_legajos, MAX_LEGAJO);
 }
 
 int main(){
@@ -194,17 +175,6 @@ int main(){
     }
 
     std::cout << std::endl << "Categoria que acumulo mas sueldo: " << max_cat << " ($" << max_acu_sueldo << ")" << std::endl << std::endl; // Punto C
-
-    for(int i = 0; i < 3; i ++){
-        for(int j = 0; j < CANT_EMP; j ++){
-            for(int k = 0; k < CANT_DIAS; k ++){
-                std::cout << lote_de_proceso[i][j][k] << " ";
-            }
-            std::cout << std::endl;
-        }
-        std::cout << std::endl;
-    }
-
 }
 
 /*
