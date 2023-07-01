@@ -58,6 +58,21 @@ void cargar_datos(EMPLEADO lote_de_carga[], int const CANT_EMP){
     }
 }
 
+void muestre_mijo(int indices_de_legajos[], int const MAX_LEGAJO){
+    for(int i = 0; i < MAX_LEGAJO; i ++){
+        std::cout << indices_de_legajos[i];
+        if(i % 100 == 0){
+            std::cout << std::endl;
+            for(int j = 0; j < 10; j ++){
+                for(int k = 0; k < 10; k ++){
+                    std::cout << k;
+                }
+            }
+            std::cout << std::endl;
+        }
+    }
+}
+
 void procesar_datos(int lote_de_proceso[][200][31], int const CANT_EMP){
     int const MAX_LEGAJO = 999;
     int dia;
@@ -65,14 +80,14 @@ void procesar_datos(int lote_de_proceso[][200][31], int const CANT_EMP){
     int horas_trabajadas;
     int jornal_cobrado;
     int j = 0;
-    int indices_de_legajos[MAX_LEGAJO - 1] = {}; // Vector que almacena los indices de cada legajo siendo 1 el menor indice. De ser nulo, el legajo no fue cargado.
+    int indices_de_legajos[MAX_LEGAJO + 1] = {}; // Vector que almacena los indices de cada legajo siendo 1 el menor indice. De ser nulo, el legajo no fue cargado. Su primer elemento no se usa, porque el indice de indices_de_legajos[j] representa cada num_de_emp, y por eso la cantidad de elementos es el num_de_emp maximo + 1.
 
     std::cout << "Insertar dia:" << std::endl;
     std::cin >> dia;
     std::cout << "Insertar numero de empleado:" << std::endl;
     std::cin >> num_de_emp;
 
-    indices_de_legajos[num_de_emp - 1] = j + 1;
+    indices_de_legajos[num_de_emp] = j + 1; // Sumo j + 1 porque lote_de_proceso[i][j][k] funciona en base 0 pero indices_de_legajos[j] en base 1.
 
     while(num_de_emp != 0){
         std::cout << "Insertar horas trabajadas:" << std::endl;
@@ -80,7 +95,7 @@ void procesar_datos(int lote_de_proceso[][200][31], int const CANT_EMP){
         std::cout << "Insertar jornal cobrado:" << std::endl;
         std::cin >> jornal_cobrado;
 
-        j = indices_de_legajos[num_de_emp - 1] - 1;
+        j = indices_de_legajos[num_de_emp] - 1; // Misma ecuacion que antes despejando j
 
         lote_de_proceso[0][j][dia - 1] = num_de_emp;
         lote_de_proceso[1][j][dia - 1] = horas_trabajadas;
@@ -91,12 +106,14 @@ void procesar_datos(int lote_de_proceso[][200][31], int const CANT_EMP){
         std::cout << "Insertar numero de empleado:" << std::endl;
         std::cin >> num_de_emp;
 
-        if(indices_de_legajos[num_de_emp - 1] == 0){
+        if(indices_de_legajos[num_de_emp] == 0){
             j ++;
         }
         
-        indices_de_legajos[num_de_emp - 1] = j + 1;
+        indices_de_legajos[num_de_emp] = j + 1; // Misma ecuacion que antes, pero dentro del while
     }
+
+    muestre_mijo(indices_de_legajos, MAX_LEGAJO);
 }
 
 int main(){
@@ -179,6 +196,7 @@ int main(){
         }
         std::cout << std::endl;
     }
+
 }
 
 /*
